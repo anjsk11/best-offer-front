@@ -1,4 +1,4 @@
-import { Gavel, PackagePlus, Search, ShieldCheck } from 'lucide-react'
+import { Gavel, Home, PackagePlus, Search, ShieldCheck } from 'lucide-react'
 import type { AppTab } from '../types/ui'
 
 type AppHeaderProps = {
@@ -17,6 +17,13 @@ export function AppHeader({ activeTab, onTabChange }: AppHeaderProps) {
         </div>
       </div>
       <nav className="tabs" aria-label="주요 메뉴">
+        <button
+          className={activeTab === 'home' ? 'active' : ''}
+          type="button"
+          onClick={() => onTabChange('home')}
+        >
+          <Home size={17} aria-hidden="true" />홈
+        </button>
         <button
           className={activeTab === 'auctions' ? 'active' : ''}
           type="button"

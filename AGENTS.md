@@ -65,7 +65,8 @@ Known enum:
 Current structure:
 
 - `src/api.ts`: backend API client and API response types
-- `src/components`: app shell pieces such as header, hero, notice banner
+- `src/components`: app shell pieces such as header and notice banner
+- `src/features/home`: home page and main banner
 - `src/features/auctions`: auction list/detail/create/bid workflow
 - `src/features/account`: signup/login workflow
 - `src/constants`: domain display constants and empty page values
@@ -74,6 +75,12 @@ Current structure:
 
 Implemented screens and flows:
 
+- Home page
+  - main banner only appears on the home tab
+  - banner text: `당신의 가격을 만나는 곳, Best Offer`
+  - banner sub text: `지금 입찰하거나 직접 물건을 올려, 가장 합리적인 가격을 찾으세요.`
+  - do not expose the Spring API URL in the banner
+  - do not render an image in the banner
 - Auction exploration page
   - paged auction list
   - auction detail panel

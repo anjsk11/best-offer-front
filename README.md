@@ -43,11 +43,13 @@ src/
   features/
     account/
     auctions/
+    home/
   types/
   utils/
 ```
 
 - `App.tsx`: 전역 탭, 알림, 페이지 조립만 담당합니다.
+- `features/home`: 홈 페이지와 메인 배너를 담당합니다.
 - `features/auctions`: 경매 탐색, 상세, 입찰, 등록 흐름을 담당합니다.
 - `features/account`: 회원가입과 로그인 흐름을 담당합니다.
 - `components`: 도메인에 덜 묶인 레이아웃/공통 UI입니다.
@@ -55,6 +57,7 @@ src/
 
 ## Implemented Features
 
+- 홈 전용 메인 배너
 - 경매 목록 조회와 페이지 이동
 - 경매 상세 조회
 - 경매 등록
