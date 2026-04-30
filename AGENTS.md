@@ -101,7 +101,8 @@ Implemented screens and flows:
 - Auction creation page
   - title, description, start price, end time
 - Auction edit/delete inside detail view
-  - update title and description
+  - edit button sits next to delete in the detail action area
+  - edit opens a modal popup for updating title and description
   - delete selected auction
 - Bidding form
   - bid price

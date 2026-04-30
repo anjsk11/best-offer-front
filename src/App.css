@@ -166,6 +166,13 @@
   gap: 14px;
 }
 
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .panel h2,
 .panel h3 {
   margin: 0;
@@ -335,6 +342,32 @@
 .create-panel {
   display: grid;
   gap: 14px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(23, 19, 15, 0.54);
+}
+
+.modal-panel {
+  position: relative;
+  width: min(560px, 100%);
+}
+
+.modal-panel .form-panel {
+  padding-top: 50px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
 }
 
 label {

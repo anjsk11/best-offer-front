@@ -5,6 +5,7 @@ import {
   Loader2,
   Pencil,
   Trash2,
+  X,
 } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
@@ -40,6 +41,8 @@ export function AuctionDetailView({
   onRefreshList,
   onRefreshSelected,
 }: AuctionDetailViewProps) {
+  const [isEditOpen, setIsEditOpen] = useState(false)
+
   async function handleDelete() {
     if (!detail) return
     if (!confirm(`'${detail.title}' 경매를 삭제할까요?`)) return
@@ -84,14 +87,24 @@ export function AuctionDetailView({
             <h2>{detail.title}</h2>
             <p>{detail.description}</p>
           </div>
-          <button
-            className="danger-button"
-            type="button"
-            onClick={() => void handleDelete()}
-          >
-            <Trash2 size={16} aria-hidden="true" />
-            삭제
-          </button>
+          <div className="detail-actions">
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => setIsEditOpen(true)}
+            >
+              <Pencil size={16} aria-hidden="true" />
+              수정
+            </button>
+            <button
+              className="danger-button"
+              type="button"
+              onClick={() => void handleDelete()}
+            >
+              <Trash2 size={16} aria-hidden="true" />
+              삭제
+            </button>
+          </div>
         </div>
 
         <dl className="metrics">
@@ -114,20 +127,43 @@ export function AuctionDetailView({
         </dl>
       </article>
 
-      <div className="side-by-side">
-        <BidForm
-          key={`bid-${detail.id}`}
-          auction={detail}
-          onNotice={onNotice}
-          onRefresh={onRefreshSelected}
-        />
-        <EditAuctionForm
-          key={`edit-${detail.id}`}
-          auction={detail}
-          onNotice={onNotice}
-          onRefresh={onRefreshSelected}
-        />
-      </div>
+      <BidForm
+        key={`bid-${detail.id}`}
+        auction={detail}
+        onNotice={onNotice}
+        onRefresh={onRefreshSelected}
+      />
+
+      {isEditOpen && (
+        <div
+          className="modal-backdrop"
+          role="presentation"
+          onMouseDown={() => setIsEditOpen(false)}
+        >
+          <div
+            aria-modal="true"
+            className="modal-panel"
+            role="dialog"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              aria-label="수정 팝업 닫기"
+              className="icon-button modal-close"
+              type="button"
+              onClick={() => setIsEditOpen(false)}
+            >
+              <X size={18} aria-hidden="true" />
+            </button>
+            <EditAuctionForm
+              key={`edit-${detail.id}`}
+              auction={detail}
+              onClose={() => setIsEditOpen(false)}
+              onNotice={onNotice}
+              onRefresh={onRefreshSelected}
+            />
+          </div>
+        </div>
+      )}
 
       <section className="panel bid-history">
         <div className="panel-heading">
@@ -156,6 +192,7 @@ export function AuctionDetailView({
 
 type DetailFormProps = {
   auction: AuctionDetail
+  onClose?: () => void
   onNotice: (notice: Notice | null) => void
   onRefresh: () => Promise<void>
 }
@@ -225,7 +262,12 @@ function BidForm({ auction, onNotice, onRefresh }: DetailFormProps) {
   )
 }
 
-function EditAuctionForm({ auction, onNotice, onRefresh }: DetailFormProps) {
+function EditAuctionForm({
+  auction,
+  onClose,
+  onNotice,
+  onRefresh,
+}: DetailFormProps) {
   const [form, setForm] = useState({
     title: auction.title,
     description: auction.description,
@@ -240,6 +282,7 @@ function EditAuctionForm({ auction, onNotice, onRefresh }: DetailFormProps) {
         description: form.description.trim(),
       })
       await onRefresh()
+      onClose?.()
       onNotice({ tone: 'success', message: '경매 정보가 수정되었습니다.' })
     } catch (error) {
       onNotice(toNotice('error', error))
