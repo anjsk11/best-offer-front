@@ -1,4 +1,4 @@
-import { Gavel, Home, PackagePlus, Search, ShieldCheck } from 'lucide-react'
+import { CircleUserRound, Gavel, Home, PackagePlus, Search } from 'lucide-react'
 import type { AppTab } from '../types/ui'
 
 type AppHeaderProps = {
@@ -41,12 +41,12 @@ export function AppHeader({ activeTab, onTabChange }: AppHeaderProps) {
           경매 등록
         </button>
         <button
-          className={activeTab === 'account' ? 'active' : ''}
+          className={activeTab === 'mypage' ? 'active' : ''}
           type="button"
-          onClick={() => onTabChange('account')}
+          onClick={() => onTabChange('mypage')}
         >
-          <ShieldCheck size={17} aria-hidden="true" />
-          계정
+          <CircleUserRound size={17} aria-hidden="true" />
+          마이페이지
         </button>
       </nav>
     </header>

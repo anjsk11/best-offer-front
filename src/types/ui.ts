@@ -3,4 +3,4 @@ export type Notice = {
   message: string
 }
 
-export type AppTab = 'home' | 'auctions' | 'create' | 'account'
+export type AppTab = 'home' | 'auctions' | 'create' | 'mypage'

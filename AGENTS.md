@@ -26,6 +26,15 @@ Current local behavior:
 
 Do not change the default API base URL back to the EC2 URL for local development unless the backend CORS policy is fixed. For static deployments without a proxy, set `VITE_API_BASE_URL=http://43.201.197.227:8080` or configure a reverse proxy.
 
+## Development Expectations
+
+When implementing or modifying features, always consider likely errors and exception cases together with the happy path.
+
+- Handle API failures, invalid or missing response data, empty states, loading states, and unavailable browser storage where relevant.
+- Keep user-facing error messages clear enough to recover from the problem.
+- Avoid assumptions that backend APIs, localStorage values, or route/tab state are always present and valid.
+- Add or update validation and fallback behavior when a feature depends on temporary frontend-only data.
+
 ## API Endpoints In Use
 
 Based on Springdoc/OpenAPI:
@@ -66,9 +75,10 @@ Current structure:
 
 - `src/api.ts`: backend API client and API response types
 - `src/components`: app shell pieces such as header and notice banner
-- `src/features/home`: home page and main banner
+- `src/features/home`: home page, main banner, and home auth section
 - `src/features/auctions`: auction list/detail/create/bid workflow
-- `src/features/account`: signup/login workflow
+- `src/features/account`: signup/login forms rendered from the home page
+- `src/features/mypage`: temporary my page showing the locally stored nickname
 - `src/constants`: domain display constants and empty page values
 - `src/utils`: formatting, form defaults, and notice helpers
 - `src/types`: shared UI types
@@ -81,6 +91,7 @@ Implemented screens and flows:
   - banner sub text: `지금 입찰하거나 직접 물건을 올려, 가장 합리적인 가격을 찾으세요.`
   - do not expose the Spring API URL in the banner
   - do not render an image in the banner
+  - signup and login forms are shown on the home page
 - Auction exploration page
   - paged auction list
   - auction detail panel
@@ -95,10 +106,14 @@ Implemented screens and flows:
 - Bidding form
   - bid price
   - bidder ID
-- Account page
+- Account forms
   - signup request
   - login request
   - login response is stored in `localStorage` under `best-offer-session`
+  - signup nickname is stored in `localStorage` under `best-offer-profile` until backend my page APIs exist
+- My page
+  - top-level `mypage` tab
+  - shows only the locally stored nickname for now
 
 API client file: `src/api.ts`
 

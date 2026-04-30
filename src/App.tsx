@@ -2,10 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import { AppHeader } from './components/AppHeader'
 import { NoticeBanner } from './components/NoticeBanner'
-import { AccountPage } from './features/account/AccountPage'
 import { AuctionExplorer } from './features/auctions/AuctionExplorer'
 import { CreateAuctionPage } from './features/auctions/CreateAuctionPage'
 import { HomePage } from './features/home/HomePage'
+import { MyPage } from './features/mypage/MyPage'
 import type { AppTab, Notice } from './types/ui'
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
       <AppHeader activeTab={activeTab} onTabChange={setActiveTab} />
       <NoticeBanner notice={notice} />
 
-      {activeTab === 'home' && <HomePage />}
+      {activeTab === 'home' && <HomePage onNotice={setNotice} />}
 
       {activeTab === 'auctions' && (
         <AuctionExplorer
@@ -39,7 +39,7 @@ function App() {
         />
       )}
 
-      {activeTab === 'account' && <AccountPage onNotice={setNotice} />}
+      {activeTab === 'mypage' && <MyPage />}
     </main>
   )
 }

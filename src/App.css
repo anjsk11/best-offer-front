@@ -431,6 +431,34 @@ textarea:focus {
   font-size: 14px;
 }
 
+.mypage {
+  display: grid;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+}
+
+.profile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--gold);
+}
+
+.profile-card h2 {
+  margin: 4px 0 0;
+  font-size: 28px;
+}
+
 .spin {
   animation: spin 800ms linear infinite;
 }

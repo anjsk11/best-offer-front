@@ -4,8 +4,7 @@ import type { FormEvent } from 'react'
 import { api } from '../../api'
 import type { Notice } from '../../types/ui'
 import { toNotice } from '../../utils/notice'
-
-const sessionStorageKey = 'best-offer-session'
+import { saveStoredProfile, sessionStorageKey } from '../../utils/session'
 
 type AccountPageProps = {
   onNotice: (notice: Notice | null) => void
@@ -27,6 +26,10 @@ export function AccountPage({ onNotice }: AccountPageProps) {
 
     try {
       const response = await api.signup(signupForm)
+      saveStoredProfile({
+        email: signupForm.email,
+        nickname: signupForm.nickname,
+      })
       onNotice({
         tone: 'success',
         message: response || '회원가입이 완료되었습니다.',
