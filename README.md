@@ -19,6 +19,8 @@
 VITE_API_BASE_URL=
 ```
 
+정적 배포처럼 Vite 프록시를 사용할 수 없는 환경에서는 백엔드 CORS 설정 또는 별도 리버스 프록시가 필요합니다.
+
 ## Scripts
 
 ```bash
@@ -27,6 +29,29 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+PowerShell에서 `npm` 실행 정책 문제가 있으면 `npm.cmd`를 사용하세요.
+
+## Project Structure
+
+```text
+src/
+  api.ts
+  App.tsx
+  components/
+  constants/
+  features/
+    account/
+    auctions/
+  types/
+  utils/
+```
+
+- `App.tsx`: 전역 탭, 알림, 페이지 조립만 담당합니다.
+- `features/auctions`: 경매 탐색, 상세, 입찰, 등록 흐름을 담당합니다.
+- `features/account`: 회원가입과 로그인 흐름을 담당합니다.
+- `components`: 도메인에 덜 묶인 레이아웃/공통 UI입니다.
+- `constants`, `utils`, `types`: 표시 상수, 포맷터, 공통 타입입니다.
 
 ## Implemented Features
 
